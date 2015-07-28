@@ -56,10 +56,6 @@ class Jacket
     uid = uid[0...l]
     arr = []
     l.times do |x|
-      a = uid[x]
-      b = uid[((x+1)%l)]
-      c = uid[((x+2)%l)]
-
       str = ""
       l.times do |y|
         str += uid[((x+y)%l)]
