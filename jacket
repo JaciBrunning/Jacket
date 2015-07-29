@@ -1,0 +1,41 @@
+#!/usr/bin/env ruby
+
+require_relative 'jacket'
+require 'optparse'
+
+@j = Jacket.new
+
+OptionParser.new do |o|
+  o.on("-k KEY", "--key", "Set the key for encoding and decoding") { |k| @j.decode_key(k) }
+end.parse!
+
+@key = @j.key
+
+def purple str
+  return "\033[35m#{str}\033[0m"
+end
+
+def green str
+  return "\033[32m#{str}\033[0m"
+end
+
+def cyan str
+  return "\033[36m#{str}\033[0m"
+end
+
+puts purple "Mode? (decode / encode)"
+mode = gets.chop!
+
+if (mode =~ /^d(e(code)?)?$/) != nil
+  puts purple "Please input the text to decode"
+  str = gets.chop!
+  h = @j.decode str
+  puts green("Decoded String:") + cyan(" #{h}")
+  puts green("Key:") + cyan(" #{@key}")
+else
+  puts purple "Please input the text to encode"
+  str = gets.chop!
+  h = @j.encode str
+  puts green("Encoded String:") + cyan(" #{h}")
+  puts green("Key:") + cyan(" #{@key}")
+end
